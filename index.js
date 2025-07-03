@@ -45,6 +45,20 @@ document.addEventListener("DOMContentLoaded", () => {
       taskId.appendChild(taskInputEl);
       row.appendChild(taskId);
       row.innerHTML += `<td>${formatted}</td>`;
+
+      // status
+
+      const statusId = document.createElement("td");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = task.done;
+      checkbox.addEventListener("change", () => {
+        task.done = checkbox.checked;
+        updatedCounts();
+      });
+
+      statusId.appendChild(checkbox);
+      row.appendChild(statusId);
     });
   }
 });
