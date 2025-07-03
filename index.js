@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Task Text
 
-      const taskId = document.createElement("td");
+      const taskTd = document.createElement("td");
       const taskInputEl = document.createElement("input");
       taskInputEl.value = task.text;
       taskInputEl.disabled = true;
@@ -43,12 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
         date.getMonth() + 1
       ).padStart(2, "0")}`;
       taskId.appendChild(taskInputEl);
-      row.appendChild(taskId);
+      row.appendChild(taskTd);
       row.innerHTML += `<td>${formatted}</td>`;
 
       // status
 
-      const statusId = document.createElement("td");
+      const statusTd = document.createElement("td");
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = task.done;
@@ -57,8 +57,23 @@ document.addEventListener("DOMContentLoaded", () => {
         updatedCounts();
       });
 
-      statusId.appendChild(checkbox);
-      row.appendChild(statusId);
+      statusTd.appendChild(checkbox);
+      row.appendChild(statusTd);
+
+      // Delete
+
+      const deleteTd = document.createElement("td");
+      const deleteBtn = document.createElement("button");
+      deleteBtn.innerHTML = "Delete";
+      deleteBtn.className = "text-red-500 text-xl";
+      deleteBtn.addEventListener("click", () => {
+        tasks.splice(index, 1);
+        renderTasks();
+        updatedCounts();
+      });
+
+      deleteTd.appendChild(deleteBtn);
+      row.appendChild(deleteTd);
     });
   }
 });
