@@ -10,41 +10,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let tasks = [];
 
-  function updatedCounts() {
-    totalCount.textContent = taskInput.length;
+  function updateCounts() {
+    totalCount.textContent = tasks.length;
     completedCount.textContent = tasks.filter((t) => t.done).length;
     pendingCount.textContent = tasks.filter((t) => !t.done).length;
   }
 
   function renderTasks() {
     todoBody.innerHTML = "";
+
     tasks.forEach((task, index) => {
       const row = document.createElement("tr");
 
       //  serial
-
-      row.innerHTML = `<td class="py-2" >${index + 1} </td>`;
+      const numTd = document.createElement("td");
+      numTd.textContent = index + 1;
+      numTd.className = "py-2";
+      row.appendChild(numTd);
 
       // Task Text
-
       const taskTd = document.createElement("td");
       const taskInputEl = document.createElement("input");
       taskInputEl.value = task.text;
       taskInputEl.disabled = true;
-      taskInputEl.classname =
+      taskInputEl.className =
         "bg-transparent text-center w-full focus:outline-none";
-      taskId.appendChild(taskInputEl);
-      row.appendChild(taskId);
+      taskTd.appendChild(taskInputEl);
+      row.appendChild(taskTd);
 
       // Date
-
+      const dateTd = document.createElement("td");
       const date = new Date(task.date);
       const formatted = `${String(date.getDate()).padStart(2, "0")}/${String(
         date.getMonth() + 1
       ).padStart(2, "0")}`;
-      taskId.appendChild(taskInputEl);
-      row.appendChild(taskTd);
-      row.innerHTML += `<td>${formatted}</td>`;
+      dateTd.textContent = formatted;
+      row.appendChild(dateTd);
 
       // status
 
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       checkbox.checked = task.done;
       checkbox.addEventListener("change", () => {
         task.done = checkbox.checked;
-        updatedCounts();
+        updateCounts();
       });
 
       statusTd.appendChild(checkbox);
@@ -69,13 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
       deleteBtn.addEventListener("click", () => {
         tasks.splice(index, 1);
         renderTasks();
-        updatedCounts();
+        updateCounts();
       });
 
       deleteTd.appendChild(deleteBtn);
       row.appendChild(deleteTd);
 
-      // edit star
+      // edit start
 
       const editTd = document.createElement("td");
       const editBtn = document.createElement("button");
