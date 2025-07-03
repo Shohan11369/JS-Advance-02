@@ -35,6 +35,16 @@ document.addEventListener("DOMContentLoaded", () => {
         "bg-transparent text-center w-full focus:outline-none";
       taskId.appendChild(taskInputEl);
       row.appendChild(taskId);
+
+      // Date
+
+      const date = new Date(task.date);
+      const formatted = `${String(date.getDate()).padStart(2, "0")}/${String(
+        date.getMonth() + 1
+      ).padStart(2, "0")}`;
+      taskId.appendChild(taskInputEl);
+      row.appendChild(taskId);
+      row.innerHTML += `<td>${formatted}</td>`;
     });
   }
 });
