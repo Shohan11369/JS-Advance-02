@@ -24,6 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
       //  serial
 
       row.innerHTML = `<td class="py-2" >${index + 1} </td>`;
+
+      // Task Text
+
+      const taskId = document.createElement("td");
+      const taskInputEl = document.createElement("input");
+      taskInputEl.value = task.text;
+      taskInputEl.disabled = true;
+      taskInputEl.classname =
+        "bg-transparent text-center w-full focus:outline-none";
+      taskId.appendChild(taskInputEl);
+      row.appendChild(taskId);
     });
   }
 });
