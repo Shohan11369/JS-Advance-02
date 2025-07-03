@@ -74,6 +74,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
       deleteTd.appendChild(deleteBtn);
       row.appendChild(deleteTd);
+
+      // edit star
+
+      const editTd = document.createElement("td");
+      const editBtn = document.createElement("button");
+      editBtn.innerHTML = "✏️(Edit)";
+      editBtn.className = "text-blue-500 text-xl";
+      editBtn.addEventListener("click", () => {
+        taskInputEl.disabled = !taskInputEl.disabled;
+        if (!taskInputEl.disabled) {
+          taskInputEl.focus();
+        } else {
+          task.text = taskInputEl.value.trim();
+        }
+      });
+
+      editTd.appendChild(editBtn);
+      row.appendChild(editTd);
+
+      todoBody.appendChild(row);
     });
   }
+
+  addBtn.addEventListener("click", () => {
+    const text = taskInput.value.trim();
+    if (text === "") return;
+
+    tasks.push({
+      text,
+      date: new Date(),
+      done: false,
+    });
+
+    taskInput.value = "";
+    renderTasks();
+    updateCounts();
+  });
 });
